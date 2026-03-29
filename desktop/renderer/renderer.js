@@ -279,6 +279,33 @@ function formatVersion(value) {
   return String(value).replace(/^v/i, "");
 }
 
+function normalizeVersion(value) {
+  return String(value || "")
+    .trim()
+    .replace(/^v/i, "")
+    .split("-")[0];
+}
+
+function compareVersions(left, right) {
+  const leftParts = normalizeVersion(left)
+    .split(".")
+    .map((part) => Number.parseInt(part, 10) || 0);
+  const rightParts = normalizeVersion(right)
+    .split(".")
+    .map((part) => Number.parseInt(part, 10) || 0);
+  const length = Math.max(leftParts.length, rightParts.length);
+
+  for (let index = 0; index < length; index += 1) {
+    const leftValue = leftParts[index] || 0;
+    const rightValue = rightParts[index] || 0;
+    if (leftValue !== rightValue) {
+      return leftValue - rightValue;
+    }
+  }
+
+  return 0;
+}
+
 function formatSignedCurrency(value) {
   if (typeof value !== "number" || Number.isNaN(value)) {
     return "—";
@@ -664,8 +691,9 @@ function renderUpdateBanner() {
   const update = state.appUpdate;
   const currentVersion = formatVersion(state.runtimeInfo?.appVersion || update?.currentVersion);
   const latestVersion = formatVersion(update?.latestVersion);
+  const hasNewerVersion = compareVersions(latestVersion, currentVersion) > 0;
   const shouldShow =
-    Boolean(update?.enabled && update?.available && update?.downloadUrl) &&
+    Boolean(update?.enabled && update?.downloadUrl && hasNewerVersion) &&
     state.currentView === "dashboard" &&
     state.dismissedUpdateVersion !== update?.latestVersion;
 

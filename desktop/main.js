@@ -135,6 +135,12 @@ async function fetchLatestReleaseInfo() {
 }
 
 async function checkForAppUpdates({ force = false } = {}) {
+  const currentVersion = normalizeVersion(app.getVersion());
+  appUpdateState = {
+    ...appUpdateState,
+    currentVersion
+  };
+
   if (!appUpdateState.enabled) {
     return appUpdateState;
   }
@@ -163,7 +169,8 @@ async function checkForAppUpdates({ force = false } = {}) {
       ...appUpdateState,
       checking: false,
       lastCheckedAt: Date.now(),
-      available: compareVersions(release.latestVersion, appUpdateState.currentVersion) > 0,
+      available: compareVersions(release.latestVersion, currentVersion) > 0,
+      currentVersion,
       latestVersion: release.latestVersion,
       releaseName: release.releaseName,
       releaseUrl: release.releaseUrl,
@@ -175,6 +182,7 @@ async function checkForAppUpdates({ force = false } = {}) {
     appUpdateState = {
       ...appUpdateState,
       checking: false,
+      currentVersion,
       lastCheckedAt: Date.now(),
       error: String(error.message || error)
     };
