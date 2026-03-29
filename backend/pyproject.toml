@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "monarch-mac-backend"
+version = "0.1.0"
+description = "Local backend for a native Monarch Money macOS wrapper"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "fastapi>=0.110,<1.0",
+  "python-dotenv>=1.0,<2.0",
+  "uvicorn[standard]>=0.29,<1.0",
+  "monarchmoney @ git+https://github.com/hammem/monarchmoney.git@98a6e0d",
+]
+
+[tool.setuptools]
+packages = ["app"]
+
+[tool.setuptools.package-data]
+app = ["static/*"]

@@ -1,0 +1,536 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monarch Mac</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Google+Sans+Text:wght@400;500;700&display=swap"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-frame">
+      <aside class="app-sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-mark" aria-hidden="true">
+            <span class="brand-dot"></span>
+          </span>
+          <div class="brand-copy">
+            <h1>Monarch Mac</h1>
+            <p>Personal finance desk</p>
+          </div>
+        </div>
+
+        <div class="sidebar-stack">
+          <section class="sidebar-section">
+            <p class="sidebar-label">Workspace</p>
+            <nav class="workspace-nav" aria-label="Workspace views">
+              <button class="workspace-tab is-active" data-view="dashboard" type="button">
+                <span class="workspace-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z" />
+                  </svg>
+                </span>
+                <span class="workspace-tab-label">Dashboard</span>
+              </button>
+              <button class="workspace-tab" data-view="accounts" type="button">
+                <span class="workspace-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="m4 8 8-4 8 4-8 4z" />
+                    <path d="m4 12 8 4 8-4" />
+                    <path d="m4 16 8 4 8-4" />
+                  </svg>
+                </span>
+                <span class="workspace-tab-label">Accounts</span>
+              </button>
+              <button class="workspace-tab" data-view="transactions" type="button">
+                <span class="workspace-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="3" y="5" width="18" height="14" rx="2" />
+                    <path d="M3 10h18" />
+                  </svg>
+                </span>
+                <span class="workspace-tab-label">Transactions</span>
+              </button>
+              <button class="workspace-tab" data-view="cashflow" type="button">
+                <span class="workspace-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="10" width="3.5" height="10" rx="1.75" />
+                    <rect x="10.25" y="4" width="3.5" height="16" rx="1.75" />
+                    <rect x="16.5" y="7" width="3.5" height="13" rx="1.75" />
+                  </svg>
+                </span>
+                <span class="workspace-tab-label">Cash Flow</span>
+              </button>
+              <button class="workspace-tab" data-view="budgets" type="button">
+                <span class="workspace-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="m4 6 6-2 4 2 6-2v14l-6 2-4-2-6 2z" />
+                    <path d="M10 4v14" />
+                    <path d="M14 6v14" />
+                  </svg>
+                </span>
+                <span class="workspace-tab-label">Budget</span>
+              </button>
+            </nav>
+          </section>
+        </div>
+      </aside>
+
+      <section class="content-shell">
+        <header class="topbar">
+          <div class="topbar-copy">
+            <p class="topbar-kicker">Household finance</p>
+            <h2 id="workspace-heading">Dashboard</h2>
+            <p id="workspace-subtitle" class="topbar-subtitle">
+              Keep track of balances, budget pressure, and recent activity.
+            </p>
+          </div>
+
+          <div class="topbar-actions">
+            <button id="refresh-button" class="button" type="button">
+              Refresh
+            </button>
+            <button id="auth-action-button" class="button primary" type="button">
+              Sign in
+            </button>
+          </div>
+        </header>
+
+        <section id="update-banner" class="update-banner" hidden>
+          <div class="update-banner-copy">
+            <p class="update-banner-label">Update available</p>
+            <h3 id="update-banner-title">A newer build is ready.</h3>
+            <p id="update-banner-body" class="update-banner-body">
+              Download the latest DMG to update this app.
+            </p>
+          </div>
+
+          <div class="update-banner-actions">
+            <button id="update-download-button" class="button primary" type="button">
+              Download update
+            </button>
+            <button id="update-dismiss-button" class="button subtle" type="button">
+              Not now
+            </button>
+          </div>
+        </section>
+
+        <div class="content-body">
+          <section id="dashboard-view" class="workspace-view is-active">
+            <div class="monitor-grid">
+              <section class="main-column">
+                <section class="metric-band" aria-label="Portfolio totals">
+                  <article class="metric">
+                    <span class="metric-label">Net worth</span>
+                    <strong id="net-worth-total">—</strong>
+                    <span class="metric-caption">Tracked household balances</span>
+                  </article>
+                  <article class="metric">
+                    <span class="metric-label">Assets</span>
+                    <strong id="asset-total">—</strong>
+                    <span class="metric-caption">Balances in scope</span>
+                  </article>
+                  <article class="metric">
+                    <span class="metric-label">Debt</span>
+                    <strong id="liability-total">—</strong>
+                    <span class="metric-caption">Absolute liabilities</span>
+                  </article>
+                  <article class="metric">
+                    <span class="metric-label">Income</span>
+                    <strong id="income-total">—</strong>
+                    <span class="metric-caption">Current summary window</span>
+                  </article>
+                  <article class="metric">
+                    <span class="metric-label">Expenses</span>
+                    <strong id="expense-total">—</strong>
+                    <span class="metric-caption">Current summary window</span>
+                  </article>
+                  <article class="metric">
+                    <span class="metric-label">Transactions</span>
+                    <strong id="transaction-count">0</strong>
+                    <span class="metric-caption">Summary window count</span>
+                  </article>
+                </section>
+
+                <section class="panel chart-panel">
+                  <header class="panel-header">
+                    <div>
+                      <p class="section-label">Household history</p>
+                      <h2>Net worth</h2>
+                      <p class="section-copy">
+                        Aggregated daily account snapshots across included accounts.
+                      </p>
+                    </div>
+
+                    <div class="history-summary" aria-label="Net worth summary">
+                      <div class="history-summary-top">
+                        <strong id="history-current" class="history-summary-current">—</strong>
+                        <span id="history-change" class="history-summary-change">—</span>
+                      </div>
+                      <span id="history-range" class="history-summary-range">—</span>
+                    </div>
+                  </header>
+
+                  <div class="chart-shell">
+                    <div class="chart-stage">
+                      <svg
+                        id="net-worth-chart"
+                        class="chart-svg"
+                        viewBox="0 0 900 260"
+                        preserveAspectRatio="none"
+                        aria-label="Historical net worth chart"
+                      ></svg>
+                      <div id="chart-empty" class="chart-empty">Sign in to load net worth history.</div>
+                    </div>
+
+                    <div class="chart-axis">
+                      <span id="history-start">—</span>
+                      <span id="history-end">—</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="panel horizon-panel">
+                  <header class="panel-header compact">
+                    <div>
+                      <p class="section-label">Coverage</p>
+                      <h2>Monitoring window</h2>
+                    </div>
+                  </header>
+
+                  <div class="horizon-grid">
+                    <div class="horizon-item">
+                      <span>First transaction</span>
+                      <strong id="summary-first">—</strong>
+                    </div>
+                    <div class="horizon-item">
+                      <span>Last transaction</span>
+                      <strong id="summary-last">—</strong>
+                    </div>
+                    <div class="horizon-item">
+                      <span>Institutions</span>
+                      <strong id="institution-count">0</strong>
+                    </div>
+                    <div class="horizon-item">
+                      <span>Accounts</span>
+                      <strong id="account-count">0</strong>
+                    </div>
+                    <div class="horizon-item">
+                      <span>Live</span>
+                      <strong id="live-count">0</strong>
+                    </div>
+                    <div class="horizon-item">
+                      <span>Manual</span>
+                      <strong id="manual-count">0</strong>
+                    </div>
+                  </div>
+                </section>
+              </section>
+
+              <aside class="side-column">
+                <section class="panel budget-snapshot-panel">
+                  <header class="panel-header compact">
+                    <div>
+                      <p class="section-label">Budget snapshot</p>
+                      <h2>This month</h2>
+                      <p id="budget-snapshot-footnote" class="section-copy">
+                        Sign in to inspect current-month category spend.
+                      </p>
+                    </div>
+                  </header>
+
+                  <div id="budget-snapshot-list" class="budget-snapshot-list">
+                    <div class="empty-state padded">Sign in to inspect current-month category spend.</div>
+                  </div>
+                </section>
+              </aside>
+            </div>
+          </section>
+
+          <section id="accounts-view" class="workspace-view" hidden>
+            <section class="panel accounts-screen-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="section-label">Accounts</p>
+                  <h2>Ranked account feed</h2>
+                  <p id="account-footnote" class="section-copy">
+                    Sign in to start monitoring live state.
+                  </p>
+                </div>
+
+                <div class="feed-controls" role="tablist" aria-label="Account filters">
+                  <button class="filter-chip is-active" data-filter="all" type="button">
+                    All
+                  </button>
+                  <button class="filter-chip" data-filter="attention" type="button">
+                    Attention
+                  </button>
+                  <button class="filter-chip" data-filter="assets" type="button">
+                    Assets
+                  </button>
+                  <button class="filter-chip" data-filter="liabilities" type="button">
+                    Liabilities
+                  </button>
+                </div>
+              </header>
+
+              <div class="feed-head">
+                <span>Name</span>
+                <span>Status</span>
+                <span>Updated</span>
+                <span>Activity</span>
+                <span class="numeric">Balance</span>
+              </div>
+
+              <div id="accounts-feed" class="feed-list">
+                <div class="empty-state padded">Sign in to load account health.</div>
+              </div>
+            </section>
+          </section>
+
+          <section id="transactions-view" class="workspace-view" hidden>
+            <section class="panel transactions-screen-panel">
+              <header class="panel-header">
+                <div>
+                  <p class="section-label">Transactions</p>
+                  <h2>Recent activity</h2>
+                  <p id="transactions-footnote" class="section-copy">
+                    Sign in to view recent transaction activity.
+                  </p>
+                </div>
+              </header>
+
+              <section class="transactions-controls" aria-label="Transaction filters">
+                <label class="transactions-field transactions-field-search">
+                  <span class="transactions-field-label">Search</span>
+                  <input
+                    id="transactions-search"
+                    class="transactions-input"
+                    type="search"
+                    placeholder="Merchant, note, or description"
+                  />
+                </label>
+
+                <label class="transactions-field">
+                  <span class="transactions-field-label">Account</span>
+                  <select id="transactions-account-filter" class="transactions-select">
+                    <option value="">All accounts</option>
+                  </select>
+                </label>
+
+                <label class="transactions-field">
+                  <span class="transactions-field-label">Category</span>
+                  <select id="transactions-category-filter" class="transactions-select">
+                    <option value="">All categories</option>
+                  </select>
+                </label>
+
+                <label class="transactions-field">
+                  <span class="transactions-field-label">From</span>
+                  <input id="transactions-start-date" class="transactions-input" type="date" />
+                </label>
+
+                <label class="transactions-field">
+                  <span class="transactions-field-label">To</span>
+                  <input id="transactions-end-date" class="transactions-input" type="date" />
+                </label>
+
+                <div class="transactions-actions">
+                  <button id="transactions-apply-button" class="button subtle" type="button">
+                    Apply
+                  </button>
+                  <button id="transactions-reset-button" class="button subtle" type="button">
+                    Reset
+                  </button>
+                </div>
+              </section>
+
+              <p id="transactions-date-hint" class="transactions-hint" hidden>
+                Choose both dates to filter by date range.
+              </p>
+
+              <div class="transaction-head">
+                <span>Date</span>
+                <span>Merchant</span>
+                <span>Account</span>
+                <span>Category</span>
+                <span class="numeric">Amount</span>
+              </div>
+
+              <div id="transactions-list" class="transactions-list">
+                <div class="empty-state padded">Sign in to load transactions.</div>
+              </div>
+
+              <footer class="transactions-footer">
+                <p id="transactions-results-meta" class="transactions-results-meta">
+                  More transactions will appear here once signed in.
+                </p>
+                <div id="transactions-pagination" class="transactions-pagination" hidden>
+                  <div class="transactions-pagination-status">
+                    <span class="transactions-loader" aria-hidden="true"></span>
+                    <span id="transactions-pagination-copy" class="transactions-pagination-copy">
+                      Scroll to keep loading
+                    </span>
+                  </div>
+                  <div id="transactions-pagination-sentinel" class="transactions-pagination-sentinel" aria-hidden="true"></div>
+                </div>
+              </footer>
+            </section>
+          </section>
+
+          <section id="budgets-view" class="workspace-view budgets-view" hidden>
+            <section class="panel budget-history-panel">
+              <header class="panel-header budget-history-header">
+                <div>
+                  <p class="section-label">Budget history</p>
+                  <h2>Category trends</h2>
+                  <p id="budget-history-footnote" class="section-copy">
+                    Sign in to load monthly budget history.
+                  </p>
+                </div>
+
+                <div class="budget-range-controls" role="tablist" aria-label="Budget history range">
+                  <button class="range-chip budget-range-chip" data-months="6" type="button">6M</button>
+                  <button class="range-chip budget-range-chip is-active" data-months="12" type="button">
+                    12M
+                  </button>
+                  <button class="range-chip budget-range-chip" data-months="24" type="button">
+                    24M
+                  </button>
+                </div>
+              </header>
+
+              <section class="budget-overview" aria-label="Budget trend summary">
+                <article class="budget-overview-item">
+                  <span class="metric-label">Categories</span>
+                  <strong id="budget-category-count">0</strong>
+                  <span class="metric-caption">Tracked in this window</span>
+                </article>
+                <article class="budget-overview-item">
+                  <span class="metric-label">Over plan</span>
+                  <strong id="budget-over-count">0</strong>
+                  <span class="metric-caption">Current month</span>
+                </article>
+                <article class="budget-overview-item">
+                  <span class="metric-label">Under plan</span>
+                  <strong id="budget-under-count">0</strong>
+                  <span class="metric-caption">Current month</span>
+                </article>
+                <article class="budget-overview-item">
+                  <span class="metric-label">Actual</span>
+                  <strong id="budget-actual-total">—</strong>
+                  <span class="metric-caption">Current month spend</span>
+                </article>
+                <article class="budget-overview-item">
+                  <span class="metric-label">Planned</span>
+                  <strong id="budget-planned-total">—</strong>
+                  <span class="metric-caption">Current month target</span>
+                </article>
+              </section>
+            </section>
+
+            <section class="budget-tiles-section">
+              <div id="budget-tiles" class="budget-tiles">
+                <div class="empty-state padded">Sign in to load budget category trends.</div>
+              </div>
+            </section>
+          </section>
+
+          <section id="cashflow-view" class="workspace-view cashflow-view" hidden>
+            <section class="panel cashflow-panel">
+              <header class="panel-header cashflow-panel-header">
+                <div>
+                  <p class="section-label">Cashflow</p>
+                  <h2>Money flow</h2>
+                  <p id="cashflow-footnote" class="section-copy">
+                    Sign in to load monthly income and expense history.
+                  </p>
+                </div>
+
+                <div
+                  class="cashflow-range-controls"
+                  role="tablist"
+                  aria-label="Cashflow history range"
+                >
+                  <button class="range-chip cashflow-range-chip" data-months="6" type="button">
+                    6M
+                  </button>
+                  <button
+                    class="range-chip cashflow-range-chip is-active"
+                    data-months="12"
+                    type="button"
+                  >
+                    12M
+                  </button>
+                  <button class="range-chip cashflow-range-chip" data-months="24" type="button">
+                    24M
+                  </button>
+                </div>
+              </header>
+
+              <section class="cashflow-overview" aria-label="Cashflow summary">
+                <article class="cashflow-overview-item">
+                  <span class="metric-label">Income</span>
+                  <strong id="cashflow-income-total">—</strong>
+                  <span class="metric-caption">Across selected window</span>
+                </article>
+                <article class="cashflow-overview-item">
+                  <span class="metric-label">Expenses</span>
+                  <strong id="cashflow-expense-total">—</strong>
+                  <span class="metric-caption">Across selected window</span>
+                </article>
+                <article class="cashflow-overview-item">
+                  <span class="metric-label">Net</span>
+                  <strong id="cashflow-net-total">—</strong>
+                  <span class="metric-caption">Income minus expenses</span>
+                </article>
+                <article class="cashflow-overview-item">
+                  <span class="metric-label">Best month</span>
+                  <strong id="cashflow-best-month">—</strong>
+                  <span id="cashflow-best-month-caption" class="metric-caption">
+                    Highest monthly net
+                  </span>
+                </article>
+              </section>
+
+              <section class="cashflow-chart-panel">
+                <header class="cashflow-chart-header">
+                  <div class="cashflow-chart-copy">
+                    <h3>Monthly money flow</h3>
+                    <p>Income and expense stacked into a single visual pass by month.</p>
+                  </div>
+
+                  <div class="cashflow-legend" aria-label="Cashflow chart legend">
+                    <span class="cashflow-legend-item">
+                      <span class="cashflow-legend-dot income"></span>
+                      Income
+                    </span>
+                    <span class="cashflow-legend-item">
+                      <span class="cashflow-legend-dot expense"></span>
+                      Expense
+                    </span>
+                    <span class="cashflow-legend-item">
+                      <span class="cashflow-legend-dot flow"></span>
+                      Flow
+                    </span>
+                  </div>
+                </header>
+
+                <div id="cashflow-chart" class="cashflow-chart">
+                  <div class="empty-state padded">Sign in to load monthly money flow.</div>
+                </div>
+              </section>
+            </section>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="./renderer.js" defer></script>
+  </body>
+</html>

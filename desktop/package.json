@@ -1,0 +1,47 @@
+{
+  "name": "monarch-mac-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Electron shell for the monarch-mac backend",
+  "releaseRepository": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "icon:generate": "swift ./scripts/generate_icon.swift",
+    "build:backend": "bash ./scripts/build_backend.sh",
+    "dist:mac": "npm run build:backend && electron-builder --mac dmg"
+  },
+  "devDependencies": {
+    "electron": "^35.1.4",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.neilsaigal.monarchmac",
+    "productName": "Monarch Mac",
+    "asar": true,
+    "directories": {
+      "output": "dist/electron"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist/backend/monarch-backend",
+        "to": "backend/monarch-backend"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": [
+        "dmg"
+      ],
+      "icon": "assets/app-icon.icns",
+      "artifactName": "${productName}-${version}.${ext}"
+    }
+  }
+}

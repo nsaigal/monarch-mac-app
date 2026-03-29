@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monarch Login</title>
+    <link rel="stylesheet" href="/static/login.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="app-frame">
+        <aside class="brand-panel">
+          <p class="eyebrow">Monarch Mac</p>
+          <h1>Sign in to the local desktop session.</h1>
+          <p class="lede">
+            Use your Monarch credentials to open a local authenticated session for the
+            desktop wrapper.
+          </p>
+
+          <div class="brand-meta">
+            <div class="meta-item">
+              <span>Flow</span>
+              <strong>Email, password, verification</strong>
+            </div>
+            <div class="meta-item">
+              <span>Session</span>
+              <strong id="status-pill" class="status-pill idle">Checking</strong>
+            </div>
+            <div class="meta-item">
+              <span>Backend</span>
+              <strong id="status-detail">Loading current session.</strong>
+            </div>
+          </div>
+        </aside>
+
+        <section class="auth-panel">
+          <div class="step-strip">
+            <div class="step is-active" data-step-indicator="credentials">
+              <span>1</span>
+              <strong>Credentials</strong>
+            </div>
+            <div class="step" data-step-indicator="otp">
+              <span>2</span>
+              <strong>Verification</strong>
+            </div>
+            <div class="step" data-step-indicator="done">
+              <span>3</span>
+              <strong>Complete</strong>
+            </div>
+          </div>
+
+          <section class="screen is-active" data-screen="credentials">
+            <div class="screen-copy">
+              <p class="section-label">Sign in</p>
+              <h2>Email and password</h2>
+              <p>
+                Enter the Monarch account email and password you want this local app
+                session to use.
+              </p>
+            </div>
+
+            <form id="credentials-form" class="flow-form">
+              <label>
+                <span>Email</span>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="username"
+                  required
+                />
+              </label>
+
+              <label>
+                <span>Password</span>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                />
+              </label>
+
+              <div class="action-row">
+                <button id="credentials-submit" type="submit" class="button button-primary">
+                  Continue
+                </button>
+                <button id="token-link" type="button" class="button button-subtle">
+                  Use token instead
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <section class="screen" data-screen="otp">
+            <div class="screen-copy">
+              <p class="section-label">Verification</p>
+              <h2 id="otp-title">Check your email</h2>
+              <p id="otp-detail">
+                Enter the verification code Monarch sent before we complete sign in.
+              </p>
+            </div>
+
+            <form id="otp-form" class="flow-form">
+              <label>
+                <span id="otp-label">Email OTP</span>
+                <input
+                  id="otp-code"
+                  name="otp_code"
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="one-time-code"
+                  required
+                />
+              </label>
+
+              <div class="action-row">
+                <button id="otp-submit" type="submit" class="button button-primary">
+                  Verify
+                </button>
+                <button id="otp-back" type="button" class="button">
+                  Back
+                </button>
+              </div>
+            </form>
+          </section>
+
+          <section class="screen" data-screen="success">
+            <div class="result-mark success-mark">Success</div>
+            <div class="screen-copy">
+              <p class="section-label">Authenticated</p>
+              <h2>Local session is ready.</h2>
+              <p id="success-detail">
+                Monarch accepted the login and the local backend session is active.
+              </p>
+            </div>
+
+            <div class="action-row">
+              <button id="success-done" type="button" class="button button-primary">
+                Done
+              </button>
+              <button id="success-logout" type="button" class="button">
+                Sign out
+              </button>
+            </div>
+          </section>
+
+          <section class="screen" data-screen="error">
+            <div class="result-mark error-mark">Error</div>
+            <div class="screen-copy">
+              <p class="section-label">Sign-in failed</p>
+              <h2 id="error-title">We could not complete sign in.</h2>
+              <p id="error-detail">
+                Check the credentials or verification code and try again.
+              </p>
+            </div>
+
+            <div class="action-row">
+              <button id="error-retry" type="button" class="button button-primary">
+                Try again
+              </button>
+              <button id="error-reset" type="button" class="button">
+                Start over
+              </button>
+            </div>
+          </section>
+
+          <section class="token-panel" id="token-panel" hidden>
+            <div class="screen-copy">
+              <p class="section-label">Alternative</p>
+              <h2>Use an existing token</h2>
+              <p>Paste a Monarch token if you already have one and want to skip the credential flow.</p>
+            </div>
+
+            <form id="token-form" class="flow-form">
+              <label>
+                <span>Monarch token</span>
+                <textarea
+                  id="token"
+                  name="token"
+                  rows="6"
+                  placeholder="Paste an existing Monarch token"
+                ></textarea>
+              </label>
+
+              <div class="action-row">
+                <button type="submit" class="button button-primary">Use token</button>
+                <button id="token-close" type="button" class="button">Close</button>
+              </div>
+            </form>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="/static/login.js" defer></script>
+  </body>
+</html>
