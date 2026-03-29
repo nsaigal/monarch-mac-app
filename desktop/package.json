@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Electron shell for the monarch-mac backend",
-  "releaseRepository": "",
+  "releaseRepository": "nsaigal/monarch-mac-app",
   "main": "main.js",
   "scripts": {
     "start": "electron .",

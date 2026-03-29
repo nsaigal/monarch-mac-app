@@ -118,10 +118,27 @@ The desktop app now supports a lightweight manual update flow for unsigned build
 To enable that for packaged builds, set the GitHub repo in `desktop/package.json`:
 
 ```json
-"releaseRepository": "owner/repo"
+"releaseRepository": "nsaigal/monarch-mac-app"
 ```
 
 The app expects GitHub Releases to contain a macOS DMG asset for each version.
+
+To publish a release manually:
+
+```bash
+cd /Users/neilsaigal/Code/monarch-mac
+git tag v0.1.0
+git push origin v0.1.0
+
+cd /Users/neilsaigal/Code/monarch-mac/desktop
+gh auth login
+gh release create v0.1.0 ./dist/electron/Monarch\\ Mac-0.1.0.dmg \
+  --repo nsaigal/monarch-mac-app \
+  --title "Monarch Mac v0.1.0" \
+  --notes "Initial public release."
+```
+
+After that, the app's update banner can open the latest release DMG directly.
 
 For local testing without changing `package.json`, you can override the release source at runtime:
 
